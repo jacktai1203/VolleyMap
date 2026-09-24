@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VolleyMap Hong Kong — Find your next match</title>
+    <meta
+      name="description"
+      content="Find indoor, beach, and grass volleyball matches across Hong Kong."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="VolleyMap home">
+        <span class="brand-mark">V</span>
+        <span>Volley<span class="brand-accent">Map</span></span>
+      </a>
+      <nav class="topnav" aria-label="Main navigation">
+        <a class="active" href="#discover">Discover</a>
+        <a href="#calendar">Calendar</a>
+        <a href="#communities">HK communities</a>
+      </nav>
+      <button class="add-match" type="button" id="addMatchButton">
+        <span>+</span> Add a match
+      </button>
+    </header>
+
+    <main id="discover">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">HONG KONG VOLLEYBALL, TOGETHER</p>
+          <h1>Find your next<br /><em>match.</em></h1>
+          <p class="hero-copy">
+            Discover indoor, beach, and grass volleyball matches across Hong
+            Kong. Find a game near your MTR line, skill level, and schedule.
+          </p>
+        </div>
+        <div class="hero-stat">
+          <strong id="heroMatchCount">47</strong>
+          <span>official matches in the schedule</span>
+        </div>
+      </section>
+
+      <section class="app-shell" aria-label="Match explorer">
+        <aside class="sidebar">
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search district, venue, or event"
+              aria-label="Search Hong Kong matches"
+            />
+            <button class="filter-toggle" id="filterToggle" type="button">☷</button>
+          </div>
+
+          <div class="filter-row">
+            <button class="filter-chip selected" data-date="all" type="button">All dates</button>
+            <button class="filter-chip" data-date="today" type="button">Today</button>
+            <button class="filter-chip" data-date="weekend" type="button">This weekend</button>
+          </div>
+          <button class="official-toggle selected" id="officialToggle" type="button" aria-pressed="true">
+            <span>✓</span> Official organizers only
+          </button>
+
+          <div class="section-heading">
+            <h2>Upcoming in Hong Kong</h2>
+            <span id="resultCount">6 results</span>
+          </div>
+
+          <div class="match-list" id="matchList"></div>
+          <div class="source-list">
+            <p>Official sources</p>
+            <a href="https://www.vbahk.org.hk/" target="_blank" rel="noopener">VBAHK <span>↗</span></a>
+            <a href="https://www.hkssf-nt.org.hk/" target="_blank" rel="noopener">HKSSF-NT <span>↗</span></a>
+            <a href="https://www.isfsports.org/sports/volleyball" target="_blank" rel="noopener">ISF Volleyball <span>↗</span></a>
+          </div>
+          <button class="load-more" id="loadMore" type="button">Load more matches <span>↓</span></button>
+        </aside>
+
+        <div class="map-area">
+          <div id="map" role="application" aria-label="Map of volleyball matches"></div>
+          <div class="map-legend">
+            <span class="legend-dot indoor"></span> Indoor
+            <span class="legend-dot beach"></span> Beach
+            <span class="legend-dot grass"></span> Grass
+          </div>
+          <button class="locate-button" id="locateButton" type="button" title="Find matches near me">⊙</button>
+          <div class="map-note">OpenStreetMap contributors</div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="modalBackdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close">×</button>
+        <p class="eyebrow">SHARE THE GAME</p>
+        <h2 id="modalTitle">Add a match</h2>
+        <p class="modal-copy">Community submissions are separate from the official VBAHK schedule and are hidden by default.</p>
+        <form id="matchForm">
+          <label>Event name <input name="name" required placeholder="e.g. Sunday Beach Volleyball" /></label>
+          <div class="form-grid">
+            <label>City <input name="city" required placeholder="City, Country" /></label>
+            <label>Date <input name="date" type="date" required /></label>
+          </div>
+          <label>Format
+            <select name="type">
+              <option value="indoor">Indoor</option>
+              <option value="beach">Beach</option>
+              <option value="grass">Grass</option>
+            </select>
+          </label>
+          <button class="submit-button" type="submit">Add to map <span>→</span></button>
+        </form>
+      </section>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
